@@ -7,8 +7,6 @@ public class Album {
     private Date released;
     private Rating ratings;
     //testing
-    // hey
-    // more testing of git stuff
-    // blah blah blah
+
 
 }

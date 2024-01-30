@@ -7,4 +7,5 @@ public class Album {
     private Date released;
     private Rating ratings;
     //testing
+    // hey
 }

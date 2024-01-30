@@ -6,4 +6,5 @@ public class Album {
     private Genre genre;
     private Date released;
     private Rating ratings;
+    //testing
 }

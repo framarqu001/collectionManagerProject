@@ -4,5 +4,21 @@ public class Rating {
     private int star;
     private Rating next;
 
-    //Rating has to be between 1-5
+    public Rating(int star) {
+        this.star = star;
+        this.next = null;
+    }
+
+    public Rating getNext() {
+        return next;
+    }
+
+    public void setNext(Rating nextNode) {
+        next = nextNode;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
 }

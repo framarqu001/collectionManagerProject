@@ -7,6 +7,7 @@ public class Album {
     private Date released;
     private Rating ratings;
 
+
     public Album(String title, Artist artist, Genre genre, Date released) {
         this.title = title;
         this.artist = artist;

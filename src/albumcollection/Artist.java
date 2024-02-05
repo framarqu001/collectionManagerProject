@@ -7,11 +7,13 @@ public class Artist implements Comparable<Artist> {
 
     @Override
     public int compareTo(Artist o) {
+
         return 0;
     }
 
     @Override
     public boolean equals(Object obj) {
+
         return super.equals(obj);
     }
 

@@ -1,5 +1,5 @@
 package albumcollection;
-
+import java.util.Calendar;
 
 public class Date implements Comparable<Date> {
     private enum Month {
@@ -24,6 +24,8 @@ public class Date implements Comparable<Date> {
     public static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
+    public static final int MIN_YEAR = 1900;
+    public static final int MONTH_OFFSET = 1; //Calendar.Month indexes month from 0
 
     private int year;
     private int month;
@@ -67,18 +69,38 @@ public class Date implements Comparable<Date> {
     }
 
     public boolean isValid () {
+        if (year < MIN_YEAR) return false;
         if (!validateMonthDay()) return false;
+        Calendar calendar = Calendar.getInstance();
+        int calYear = calendar.get(Calendar.YEAR);
+        int calMonth = calendar.get(Calendar.MONTH) + MONTH_OFFSET;
+        int calDay = calendar.get(Calendar.DAY_OF_MONTH);
+        Date todayDate = new Date(calYear, calMonth, calDay);
+        if (compareTo(todayDate) >-1) return false;
         return true; //placeholder
     }
 
     @Override
-    public int compareTo (Date o){
+    public int compareTo (Date that){
+        if (this.year  < that.year) return -1;
+        if (this.year > that.year) return 1;
+        if (this.month  < that.month) return -1;
+        if (this.month > that.month) return 1;
+        if (this.day  < that.day) return -1;
+        if (this.day > that.day) return 1;
         return 0;
     }
 
     public static void main(String[] args) {
-        Date test = new Date(2001,2,29);
+        Date test = new Date(2024,3,5);
         System.out.println(test.isValid());
+
+        Calendar calendar = Calendar.getInstance();
+        int calYear = calendar.get(Calendar.YEAR);
+        int calMonth = calendar.get(Calendar.MONTH) + MONTH_OFFSET;
+        int calDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        System.out.println(calYear + " " + calMonth + " " + calDay);
     }
 }
 

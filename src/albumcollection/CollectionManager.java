@@ -50,13 +50,11 @@ public class CollectionManager {
             String line = scanner.nextLine();
             String[] tokenArray = line.split(",");
             Command command;
-            if (validateCommand(tokenArray[0])){
-                command = Command.valueOf(tokenArray[0]);
-            } else{
+            if (!validateCommand(tokenArray[0])){
                 System.out.println("invalid command");
                 continue;
             }
-
+            command = Command.valueOf(tokenArray[0]);
             switch (command){
                 case A:
                     add(tokenArray);
@@ -80,9 +78,7 @@ public class CollectionManager {
                     runCM = false;
                     break;
             }
-
         }
         System.out.println("Collection Manager Terminated");
-
     }
 }

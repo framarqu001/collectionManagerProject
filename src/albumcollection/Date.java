@@ -7,6 +7,11 @@ import java.util.Calendar;
  * @author Francisco Marquez
  */
 public class Date implements Comparable<Date> {
+    public static final int QUADRENNIAL = 4;
+    public static final int CENTENNIAL = 100;
+    public static final int QUATERCENTENNIAL = 400;
+    public static final int MIN_YEAR = 1900;
+    public static final int MONTH_OFFSET = 1; //Calendar.Month indexes month from 0
     /**
      * This enum represents the valid months and days for the Date Class.
      * Each month has a month value and the amount of days associated with that month.
@@ -40,12 +45,6 @@ public class Date implements Comparable<Date> {
             return monthDays;
         }
     }
-
-    public static final int QUADRENNIAL = 4;
-    public static final int CENTENNIAL = 100;
-    public static final int QUATERCENTENNIAL = 400;
-    public static final int MIN_YEAR = 1900;
-    public static final int MONTH_OFFSET = 1; //Calendar.Month indexes month from 0
 
     private int year;
     private int month;

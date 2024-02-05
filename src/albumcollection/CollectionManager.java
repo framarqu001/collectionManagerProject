@@ -6,38 +6,83 @@ public class CollectionManager {
     public static final int VALID_INPUTS = 6;
     Collection collection;
 
+    private void add(String[] tokenArray){
+
+    }
+
+    private void delete(String[] tokenArray){
+
+    }
+
+    private void rate(String[] tokenArray){
+
+    }
+
+    private void displayReleaseSort(){
+
+    }
+
+    private void displayGenreSort(){
+
+    }
+
+    private void displayRatingSort(){
+
+    }
+    private Boolean validateCommand(String commandStr){
+        for (Command command : Command.values()){
+            if (commandStr.equals(command.name())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public CollectionManager() {
         this.collection = new Collection();
     }
 
-    public static void run(){
-        // Proccess command line arguments and operations to collections
+    public void run(){
+        Boolean runCM = true;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Collection Manager is now Running!\n");
-        while (scanner.hasNextLine()) {
+        System.out.println("Collection Manager is up running\n");
+        while (scanner.hasNextLine() && runCM) {
             String line = scanner.nextLine();
             String[] tokenArray = line.split(",");
-            if (tokenArray.length != VALID_INPUTS){
-                System.out.println("Invalid command");
-                continue;
-            }
-            String commandStr = tokenArray[0];
             Command command;
-            try {
-                // Attempt to convert the command string to the enum value
-                command = Command.valueOf(commandStr);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command: " + commandStr);
+            if (validateCommand(tokenArray[0])){
+                command = Command.valueOf(tokenArray[0]);
+            } else{
+                System.out.println("invalid command");
                 continue;
             }
-            String albumStr = tokenArray[1];
-            String artistStr = tokenArray[2];
-            String dob = tokenArray[3];
-            String genreStr = tokenArray[4];
-            String dateStr = tokenArray[5];
 
+            switch (command){
+                case A:
+                    add(tokenArray);
+                    break;
+                case D:
+                    delete(tokenArray);
+                    break;
+                case R:
+                    rate(tokenArray);
+                    break;
+                case PD:
+                    displayReleaseSort();
+                    break;
+                case PG:
+                    displayGenreSort();
+                    break;
+                case PR:
+                    displayRatingSort();
+                    break;
+                case Q:
+                    runCM = false;
+                    break;
+            }
 
         }
+        System.out.println("Collection Manager Terminated");
 
     }
 }

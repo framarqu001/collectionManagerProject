@@ -6,35 +6,37 @@ public class Collection {
     private Album[] albums;
     private int size;
 
-    private int find(Album album){
+    private int find(Album album) {
         return 0; //placeholder
     }
 
-    private void grow(){
+    private void grow() {
 
     }
 
-    public boolean contains(Album album){
+    public boolean contains(Album album) {
+
         return true; //place holder
     }
 
-    public boolean remove(Album album){
+    public boolean remove(Album album) {
+
         return true; //place holder
     }
 
-    public void rate(Album album, int rating){
+    public void rate(Album album, int rating) {
 
     }
 
-    public void printBydate(){
+    public void printByDate() {
 
     }
 
-    public void printByGenre(){
+    public void printByGenre() {
 
     }
 
-    public void printByRating(){
+    public void printByRating() {
 
     }
 

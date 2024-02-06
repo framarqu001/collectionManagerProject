@@ -65,6 +65,18 @@ public class Date implements Comparable<Date> {
     }
 
     /**
+     * Initiliazes a Date Object.
+     * @param year int representing year
+     * @param month int representing month
+     * @param day int representing day
+     */
+    public Date(int month, int day, int year) {
+        this.month = month;
+        this.day = day;
+        this.year = year;
+    }
+
+    /**
      * Checks if the Month and Day of the Date object is a valid calendar day.
      * @return true if month and day are valid values, false otherwise
      */

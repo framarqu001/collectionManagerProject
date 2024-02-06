@@ -53,7 +53,7 @@ public class Date implements Comparable<Date> {
     private int year;
 
     /**
-     * Constructs a Date object.
+     * Initializes a Date object.
      * Parses token and stores the month, day, and year.
      * @param token A string in the format of "mm/dd/yyyy
      */
@@ -65,7 +65,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Initiliazes a Date Object.
+     * Initializes a Date Object.
      * @param year int representing year
      * @param month int representing month
      * @param day int representing day

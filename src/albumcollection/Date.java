@@ -174,7 +174,6 @@ public class Date implements Comparable<Date> {
     private static void testDaysInFeb_Leap() {
         boolean expectedOutput = true; // if leap year then there is a 29th day
         boolean actualOutput;
-
         Date test = new Date("2/29/2000");
         actualOutput = test.isValid();
         System.out.println("Testing if date is valid date in February for a leap year");

@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class CollectionManager {
     enum Command {A, D, R, PD, PG, PR, Q}
-    public static final int VALID_INPUTS = 6;
     Collection collection;
 
     private void add(String[] tokenArray){

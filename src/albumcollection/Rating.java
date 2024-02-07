@@ -11,7 +11,7 @@ public class Rating {
 
     /**
      * Initializes a Rating object
-     * @param star
+     * @param star int representing a rating's value
      */
     public Rating(int star) {
         this.star = star;

@@ -1,19 +1,34 @@
 package albumcollection;
 
+/**
+ * This class holds the information of an Artist for an Album.
+ * The artist class contains a string for the name of the artist.
+ * Also, an object of Date representing the Artist birthday.
+ */
 public class Artist implements Comparable<Artist> {
     private String name;
     private Date born;
 
+    /**
+     * Initializes an artist object
+     * @param name The name of the artist
+     * @param born The date of birth of the artist
+     */
     public Artist(String name, Date born) {
         this.name = name;
         this.born = born;
     }
 
+    /**
+     * Compares artist objects by comparing an artist's name lexicographically.
+     * DOB is used as a tie-breaker.
+     * @param that the object to be compared.
+     * @return 0 if items are equal.
+     * -1 if this.artist < that.artist
+     * 1 if this.artist > that.artist
+     */
     @Override
     public int compareTo(Artist that) {
-        String test1,test2;
-        test1 = this.name.toLowerCase();
-        test2 = that.name.toLowerCase();
         if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) == 1) return 1;
         if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) == -1) return -1;
         if(this.born.compareTo(that.born) == 1) return 1;
@@ -21,6 +36,11 @@ public class Artist implements Comparable<Artist> {
         else return 0;
     }
 
+    /**
+     * Overrides equals methods. Artist are equals if they have the same name and DOB
+     * @param obj An artist object. Obj will be cast into an artist obj
+     * @return true if equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Artist)){
@@ -34,6 +54,9 @@ public class Artist implements Comparable<Artist> {
 
     }
 
+    /**
+     * @return A string in the format Artist: (artist) DOB: (DOB)
+     */
     @Override
     public String toString() {
         return "Artist: " + name + "\tDOB: " + born;

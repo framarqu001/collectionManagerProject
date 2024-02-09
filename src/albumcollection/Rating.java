@@ -26,7 +26,7 @@ public class Rating {
     }
 
     /**
-     * Sets the next rating in the list
+     * Sets the next rating node in the list
      * @param nextNode a rating to be added to the list.
      */
     public void setNext(Rating nextNode) {

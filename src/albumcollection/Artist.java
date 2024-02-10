@@ -29,8 +29,8 @@ public class Artist implements Comparable<Artist> {
      */
     @Override
     public int compareTo(Artist that) {
-        if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) == 1) return 1;
-        if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) == -1) return -1;
+        if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) > 0) return 1;
+        if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) < 0) return -1;
         if(this.born.compareTo(that.born) == 1) return 1;
         if(this.born.compareTo(that.born) == -1) return -1;
         else return 0;
@@ -59,7 +59,7 @@ public class Artist implements Comparable<Artist> {
      */
     @Override
     public String toString() {
-        return "Artist: " + name + "\tDOB: " + born;
+        return name + ": " + born;
     }
 
     public static void main(String[] args) {

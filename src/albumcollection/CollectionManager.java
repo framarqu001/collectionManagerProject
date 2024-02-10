@@ -3,16 +3,28 @@ import java.util.Scanner;
 
 public class CollectionManager {
     private enum Command {A, D, R, PD, PG, PR, Q}
-    private Collection collection;
+    private TestCollection collection;
 
     private void add(String[] tokenArray){
         String title = tokenArray[1];
         Date dobDate = new Date(tokenArray[3]);
+        if (!dobDate.isValid()){
+            System.out.println("Artist DOB: " + dobDate.toString() + " is invalid.");
+            return;
+        }
         Date releaseDate = new Date(tokenArray[5]);
+        if (!releaseDate.isValid()){
+            System.out.println("Date Released: " + releaseDate.toString() + " is invalid.");
+            return;
+        }
         Artist artist = new Artist(tokenArray[2], dobDate);
         String genre = tokenArray[4];
         Album newAlbum = new Album(title, artist,genre,releaseDate);
-        collection.add(newAlbum);
+        if (collection.add(newAlbum)){
+            System.out.println(title + "(" + artist.toString() + ") added to the colletion.");
+        }else {
+            System.out.println(title + "(" + artist.toString() + ") is already in the collection.");
+        }
     }
 
 
@@ -46,11 +58,11 @@ public class CollectionManager {
     }
 
     public CollectionManager() {
-        this.collection = new Collection();
+        this.collection = new TestCollection();
     }
 
     public void run(){
-        Boolean runCM = true;
+        boolean runCM = true;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Collection Manager is up running\n");
         while (scanner.hasNextLine() && runCM) {

@@ -95,15 +95,28 @@ public class Album {
         return false;
     }
 
+    private int[] nodeRatings(){
+        final int TOTAL_STARS = 5;
+        final int OFFSET = 1; // count of each star value will be stored at index of [starvalue - 1]
+        int[] nodeRatings = new int[TOTAL_STARS];
+        Rating currentNode = ratings;
+        while (currentNode != null){
+            int starValue = currentNode.getStar();
+            nodeRatings[starValue-OFFSET] += 1; //increasing count
+            currentNode = currentNode.getNext();
+        }
+        return nodeRatings;
+    }
+
     @Override
     public String toString() {
-        return "Album{" +
-                "title='" + title + '\'' +
-                ", artist=" + artist +
-                ", genre=" + genre +
-                ", released=" + released +
-                ", ratings=" + ratings +
-                '}';
+        int[] rateArr = nodeRatings();
+        if (ratings == null){
+            return"[" + title + "] Released " + released + "[" + artist + "][" + genre.name() + "]Rating: none";
+        }
+        return"[" + title + "] Released " + released + "[" + artist + "][" + genre.name() + "]Rating:" +
+                "*(" + rateArr[0] + ")" + "**(" + rateArr[1] + ")" + "***(" + rateArr[2] + ")" +
+                "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ")";
     }
 
     public static void main(String[] args) {
@@ -112,6 +125,11 @@ public class Album {
         Artist artist = new Artist("taylor", dob);
         Album test = new Album("Fearless", artist, "pop",released);
         System.out.println(test);
-
+        test.rate(4);
+        test.rate(4);
+        test.rate(3);
+        test.rate(1);
+        test.rate(5);
+        System.out.println(test);
     }
 }

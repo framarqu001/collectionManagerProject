@@ -30,7 +30,16 @@ public class CollectionManager {
 
 
     private void delete(String[] tokenArray){
-
+        String title = tokenArray[1];
+        Date dob = new Date(tokenArray[3]);
+        Artist artist = new Artist(tokenArray[2], dob);
+        Album deleteAlbum = new Album(title,artist);
+        if (collection.contains(deleteAlbum)){
+            collection.remove(deleteAlbum);
+            System.out.println(title + "(" + artist.toString() + ") removed from the collection.");
+        } else {
+            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+        }
     }
 
     private void rate(String[] tokenArray){

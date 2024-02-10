@@ -74,6 +74,18 @@ public class Album {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Album)){
+            return false;
+        }
+        Album that = (Album) obj;
+        if (this.artist.equals(that.artist) && (this.title.toLowerCase().equals(that.title.toLowerCase()))){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Album{" +
                 "title='" + title + '\'' +

@@ -12,7 +12,7 @@ public class Album {
     private Rating ratings;
 
     /**
-     * Initiliazes an album object
+     * Initializes an album object
      * @param title The title of the Album
      * @param artist Arist who created the Album.
      * @param genre  Genre categorizes the Album into  be Pop, Country, Classical, Jazz, or Unknown
@@ -24,6 +24,16 @@ public class Album {
         this.genre = setGenre(genre);
         this.released = released;
         this.ratings = null; //Ratings are added later
+    }
+
+    /**
+     * initializes an album object. This constructor is used to find an album to delete
+     * @param title The title of the Album
+     * @param artist Arist who created the Album.
+     */
+    public Album(String title, Artist artist) {
+        this.title = title;
+        this.artist = artist;
     }
 
 

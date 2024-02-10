@@ -18,17 +18,22 @@ public class Album {
      * @param genre  Genre categorizes the Album into  be Pop, Country, Classical, Jazz, or Unknown
      * @param released The release date of an album
      */
-    public Album(String title, Artist artist, Genre genre, Date released) {
+    public Album(String title, Artist artist, String genre, Date released) {
         this.title = title;
         this.artist = artist;
-        this.genre = genre;
+        this.genre = setGenre(genre);
         this.released = released;
         this.ratings = null; //Ratings are added later
     }
 
 
-    private Genre setGenre(){
-        return genre; // maybe do this instead? will come back to
+    private Genre setGenre(String genre){
+        for (Genre element: Genre.values()){
+            if (genre.toLowerCase().equals(element.name().toLowerCase())){
+                return element;
+            }
+        }
+        return Genre.UNKNOWN;
     }
 
     /**
@@ -68,7 +73,23 @@ public class Album {
         return total/count;
     }
 
+    @Override
+    public String toString() {
+        return "Album{" +
+                "title='" + title + '\'' +
+                ", artist=" + artist +
+                ", genre=" + genre +
+                ", released=" + released +
+                ", ratings=" + ratings +
+                '}';
+    }
 
     public static void main(String[] args) {
+        Date dob = new Date(05,24,2000);
+        Date released = new Date(2,8,2024);
+        Artist artist = new Artist("taylor", dob);
+        Album test = new Album("Fearless", artist, "pop",released);
+        System.out.println(test);
+
     }
 }

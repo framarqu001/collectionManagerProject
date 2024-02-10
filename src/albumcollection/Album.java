@@ -26,6 +26,11 @@ public class Album {
         this.ratings = null; //Ratings are added later
     }
 
+
+    private Genre setGenre(){
+        return genre; // maybe do this instead? will come back to
+    }
+
     /**
      * Adds a rating to the album. Ratings are a linked-list of rating nodes.
      * An album object initializes with ratings set to null until the rate method is called. If rate is called
@@ -62,6 +67,7 @@ public class Album {
 
         return total/count;
     }
+
 
     public static void main(String[] args) {
     }

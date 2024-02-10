@@ -2,11 +2,26 @@ package albumcollection;
 import java.util.Scanner;
 
 public class CollectionManager {
-    enum Command {A, D, R, PD, PG, PR, Q}
-    Collection collection;
+    private enum Command {A, D, R, PD, PG, PR, Q}
+    private Collection collection;
 
     private void add(String[] tokenArray){
+        String title = tokenArray[1];
+        Date dobDate = new Date(tokenArray[3]);
+        Date releaseDate = new Date(tokenArray[5]);
+        Artist newArtist = new Artist(tokenArray[2], dobDate);
+        Genre genre = setGenre(tokenArray[4]);
+        Album newAlbum = new Album(title, newArtist,genre,releaseDate);
+        collection.add(newAlbum);
+    }
 
+    private Genre setGenre(String genre){
+        for (Genre element: Genre.values()){
+            if (genre.toLowerCase().equals(element.name().toLowerCase())){
+                return element;
+            }
+        }
+        return Genre.UNKNOWN;
     }
 
     private void delete(String[] tokenArray){

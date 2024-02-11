@@ -1,14 +1,30 @@
 package albumcollection;
 import java.util.Scanner;
 
+/**
+ * Collection Manager is the User Interface for a Collection of albums.
+ * Users can add, delete, rate an album. Users can also sort albums in the collection
+ * by date, rating, and genre.
+ */
 public class CollectionManager {
+
+    /**
+     * This class holds the valid commands that a collectionManager accepts
+     */
     private enum Command {A, D, R, PD, PG, PR, Q}
     private Collection collection;
 
+    /**
+     * Initializes an empty collection.
+     */
     public CollectionManager() {
         this.collection = new Collection();
     }
 
+    /**
+     * This method waits for users input in order to manage a collection.
+     * Run parses through user input and stores tokens delimited by commas inside a tokenArray.
+     */
     public void run(){
         boolean runCM = true;
         Scanner scanner = new Scanner(System.in);
@@ -48,7 +64,12 @@ public class CollectionManager {
         }
         System.out.println("Collection Manager Terminated");
     }
-    
+
+    /**
+     * Validates if user input is a command in enum Command.Case-sensitive.
+     * @param commandStr An input command by the user.
+     * @return True if input is a valid Command, false otherwise.
+     */
     private Boolean validateCommand(String commandStr){
         for (Command command : Command.values()){
             if (commandStr.equals(command.name())){
@@ -58,6 +79,12 @@ public class CollectionManager {
         return false;
     }
 
+    /**
+     * Adds an album to the collection.
+     * Prior to adding it validates an artist's dob and album's release date
+     * Also checks if the album to be added already exist in the collection
+     * @param tokenArray An array of tokens inputted by user.
+     */
     private void add(String[] tokenArray){
         String title = tokenArray[1];
         Date dobDate = new Date(tokenArray[3]);
@@ -80,6 +107,11 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Deletes an album from the collection.
+     * Checks if album to be deleted exist in the collection.
+     * @param tokenArray An array of tokens inputted by user.
+     */
     private void delete(String[] tokenArray){
         String title = tokenArray[1];
         Date dob = new Date(tokenArray[3]);
@@ -92,6 +124,11 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Rates an album from 1 to 5 in the collection.
+     * Checks if rating inputed is between 1-5
+     * @param tokenArray An array of tokens inputted by user.
+     */
     private void rate(String[] tokenArray){
         int star = Integer.parseInt(tokenArray[4]);
         if (star > 5 || star < 1){
@@ -110,6 +147,4 @@ public class CollectionManager {
             System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
         }
     }
-
-
 }

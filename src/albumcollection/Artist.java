@@ -62,6 +62,14 @@ public class Artist implements Comparable<Artist> {
         return name + ": " + born;
     }
 
+    /**
+     * @return name of artist
+     */
+    public String getName() {
+        return name;
+    }
+
+
     public static void main(String[] args) {
         testArtistSameNameDifferentCaseLesserDate();
         testArtistlexicographicalOrderLesserThan();

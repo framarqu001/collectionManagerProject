@@ -125,6 +125,10 @@ public class Collection {
 
     }
 
+    public Album getMatchingAlbum(Album newAlbum){
+        return albums[0]; //temp
+    }
+
     /**
      * Sorts album collection by dates released, then title
      * Prints out sorted collection

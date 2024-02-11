@@ -119,9 +119,9 @@ public class CollectionManager {
         Artist artist = new Artist(tokenArray[2], dob);
         Album deleteAlbum = new Album(title,artist);
         if (collection.remove(deleteAlbum)){
-            System.out.println(title + "(" + artist.toString() + ") removed from the collection.");
+            System.out.println(title + "(" + artist + ") removed from the collection.");
         } else {
-            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+            System.out.println(title + "(" + artist + ") is not in the collection.");
         }
     }
 
@@ -142,10 +142,12 @@ public class CollectionManager {
         Album rateAlbum = new Album(title,artist);
         if (collection.contains(rateAlbum)){
             collection.rate(rateAlbum,star);
-            System.out.println("You rate " + star + " for " + title + "(" + artist.toString() + ")");
+            System.out.println("You rate " + star + " for " + title + ":" +
+                    collection.getMatchingAlbum(rateAlbum).getReleased() +
+                    "(" + artist.getName() + ")");
 
         } else {
-            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+            System.out.println(title + "(" + artist + ") is not in the collection.");
         }
     }
 }

@@ -73,15 +73,7 @@ public class Album {
     public Artist getArtist() {
         return artist;
     }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
+    
     public double avgRatings() {
         if (ratings == null){
             return 0.0;

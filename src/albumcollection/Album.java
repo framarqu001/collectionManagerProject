@@ -68,7 +68,6 @@ public class Album {
         while (currentNode.getNext() != null){
             currentNode = currentNode.getNext();
         }
-
         currentNode.setNext(new Rating(star));
     }
 

@@ -26,7 +26,7 @@ public class CollectionManager {
      * Run parses through user input and stores tokens delimited by commas inside a tokenArray.
      */
     public void run(){
-        boolean runCM = true;
+        boolean runCM = true; //Collection manager quits when false.
         Scanner scanner = new Scanner(System.in);
         System.out.println("Collection Manager is up running\n");
         while (scanner.hasNextLine() && runCM) {

@@ -68,8 +68,6 @@ public class Artist implements Comparable<Artist> {
         testArtistSameNameSameDate();
         testArtistlexicographicalOrderGreaterThan();
         testArtistSameNameGreaterDate();
-
-        System.out.println("steven".compareTo("katiusca"));
     }
 
     private static void testArtistSameNameDifferentCaseLesserDate(){

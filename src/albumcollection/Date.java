@@ -43,11 +43,6 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    public static final int QUADRENNIAL = 4;
-    public static final int CENTENNIAL = 100;
-    public static final int QUATERCENTENNIAL = 400;
-    public static final int MIN_YEAR = 1900;
-    public static final int MONTH_OFFSET = 1; //Calendar.Month indexes month from 0
     private int day;
     private int month;
     private int year;
@@ -76,9 +71,29 @@ public class Date implements Comparable<Date> {
         this.year = year;
     }
 
+    /**
+     * Checks if the Date object contains a valid date.
+     * To be a valid date it must not be before the year 1900.
+     * Must be date that exist on the Calendar.
+     * Cannot be today or a future day.
+     * @return true if valid, false otherwise.
+     */
+    public boolean isValid () {
+        final int MIN_YEAR = 1900;
+        final int MONTH_OFFSET = 1; // calendar.month indexes month from 0;
+        if (year < MIN_YEAR) return false;
+        if (!validateMonthDay()) return false;
+        Calendar calendar = Calendar.getInstance();
+        int calYear = calendar.get(Calendar.YEAR);
+        int calMonth = calendar.get(Calendar.MONTH) + MONTH_OFFSET;
+        int calDay = calendar.get(Calendar.DAY_OF_MONTH);
+        Date todayDate = new Date(calMonth, calDay, calYear);
+        if (compareTo(todayDate) != -1) return false; // This.Date is greater >= today's date, so date is invalid
+        return true; //placeholder
+    }
 
     /**
-     * Checks if the Month and Day of the Date object is a valid calendar day.
+     * Helper methods that checks if theMonth and Day of the Date object is a valid calendar day.
      * @return true if month and day are valid values, false otherwise
      */
     private boolean validateMonthDay() {
@@ -108,31 +123,15 @@ public class Date implements Comparable<Date> {
      * @return true if leap year, false otherwise.
      */
     private boolean leapYear() {
+        final int QUADRENNIAL = 4;
+        final int CENTENNIAL = 100;
+        final int QUATERCENTENNIAL = 400;
         if (year % QUADRENNIAL == 0) {
             if (year % CENTENNIAL != 0 || year % QUATERCENTENNIAL == 0) {
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Checks if the Date object contains a valid date.
-     * To be a valid date it must not be before the year 1900.
-     * Must be date that exist on the Calendar.
-     * Cannot be today or a future day.
-     * @return true if valid, false otherwise.
-     */
-    public boolean isValid () {
-        if (year < MIN_YEAR) return false;
-        if (!validateMonthDay()) return false;
-        Calendar calendar = Calendar.getInstance();
-        int calYear = calendar.get(Calendar.YEAR);
-        int calMonth = calendar.get(Calendar.MONTH) + MONTH_OFFSET;
-        int calDay = calendar.get(Calendar.DAY_OF_MONTH);
-        Date todayDate = new Date(calMonth, calDay, calYear);
-        if (compareTo(todayDate) != -1) return false; // This.Date is greater >= today's date, so date is invalid
-        return true; //placeholder
     }
 
     /**

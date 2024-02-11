@@ -5,70 +5,6 @@ public class CollectionManager {
     private enum Command {A, D, R, PD, PG, PR, Q}
     private Collection collection;
 
-    private void add(String[] tokenArray){
-        String title = tokenArray[1];
-        Date dobDate = new Date(tokenArray[3]);
-        if (!dobDate.isValid()){
-            System.out.println("Artist DOB: " + dobDate.toString() + " is invalid.");
-            return;
-        }
-        Date releaseDate = new Date(tokenArray[5]);
-        if (!releaseDate.isValid()){
-            System.out.println("Date Released: " + releaseDate.toString() + " is invalid.");
-            return;
-        }
-        Artist artist = new Artist(tokenArray[2], dobDate);
-        String genre = tokenArray[4];
-        Album newAlbum = new Album(title, artist,genre,releaseDate);
-        if (collection.add(newAlbum)){
-            System.out.println(title + "(" + artist.toString() + ") added to the colletion.");
-        }else {
-            System.out.println(title + "(" + artist.toString() + ") is already in the collection.");
-        }
-    }
-
-
-
-    private void delete(String[] tokenArray){
-        String title = tokenArray[1];
-        Date dob = new Date(tokenArray[3]);
-        Artist artist = new Artist(tokenArray[2], dob);
-        Album deleteAlbum = new Album(title,artist);
-        if (collection.remove(deleteAlbum)){
-            System.out.println(title + "(" + artist.toString() + ") removed from the collection.");
-        } else {
-            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
-        }
-    }
-
-    private void rate(String[] tokenArray){
-        int star = Integer.parseInt(tokenArray[4]);
-        if (star > 5 || star < 1){
-            System.out.println("Invalid rating, rating scale is 1 to 5");
-            return;
-        }
-        String title = tokenArray[1];
-        Date dob = new Date(tokenArray[3]);
-        Artist artist = new Artist(tokenArray[2], dob);
-        Album rateAlbum = new Album(title,artist);
-        if (collection.contains(rateAlbum)){
-            collection.rate(rateAlbum,star);
-            System.out.println("You rate " + star + " for " + title + "(" + artist.toString() + ")");
-
-        } else {
-            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
-        }
-    }
-
-    private Boolean validateCommand(String commandStr){
-        for (Command command : Command.values()){
-            if (commandStr.equals(command.name())){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public CollectionManager() {
         this.collection = new Collection();
     }
@@ -103,7 +39,7 @@ public class CollectionManager {
                     collection.printByGenre();
                     break;
                 case PR:
-                        collection.printByRating();
+                    collection.printByRating();
                     break;
                 case Q:
                     runCM = false;
@@ -112,4 +48,68 @@ public class CollectionManager {
         }
         System.out.println("Collection Manager Terminated");
     }
+    
+    private Boolean validateCommand(String commandStr){
+        for (Command command : Command.values()){
+            if (commandStr.equals(command.name())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void add(String[] tokenArray){
+        String title = tokenArray[1];
+        Date dobDate = new Date(tokenArray[3]);
+        if (!dobDate.isValid()){
+            System.out.println("Artist DOB: " + dobDate.toString() + " is invalid.");
+            return;
+        }
+        Date releaseDate = new Date(tokenArray[5]);
+        if (!releaseDate.isValid()){
+            System.out.println("Date Released: " + releaseDate.toString() + " is invalid.");
+            return;
+        }
+        Artist artist = new Artist(tokenArray[2], dobDate);
+        String genre = tokenArray[4];
+        Album newAlbum = new Album(title, artist,genre,releaseDate);
+        if (collection.add(newAlbum)){
+            System.out.println(title + "(" + artist.toString() + ") added to the colletion.");
+        }else {
+            System.out.println(title + "(" + artist.toString() + ") is already in the collection.");
+        }
+    }
+
+    private void delete(String[] tokenArray){
+        String title = tokenArray[1];
+        Date dob = new Date(tokenArray[3]);
+        Artist artist = new Artist(tokenArray[2], dob);
+        Album deleteAlbum = new Album(title,artist);
+        if (collection.remove(deleteAlbum)){
+            System.out.println(title + "(" + artist.toString() + ") removed from the collection.");
+        } else {
+            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+        }
+    }
+
+    private void rate(String[] tokenArray){
+        int star = Integer.parseInt(tokenArray[4]);
+        if (star > 5 || star < 1){
+            System.out.println("Invalid rating, rating scale is 1 to 5");
+            return;
+        }
+        String title = tokenArray[1];
+        Date dob = new Date(tokenArray[3]);
+        Artist artist = new Artist(tokenArray[2], dob);
+        Album rateAlbum = new Album(title,artist);
+        if (collection.contains(rateAlbum)){
+            collection.rate(rateAlbum,star);
+            System.out.println("You rate " + star + " for " + title + "(" + artist.toString() + ")");
+
+        } else {
+            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+        }
+    }
+
+
 }

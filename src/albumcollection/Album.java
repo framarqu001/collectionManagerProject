@@ -27,7 +27,8 @@ public class Album {
     }
 
     /**
-     * initializes an album object. This constructor is used to find an album to delete
+     * Initializes an album object.
+     * This constructor is used to find albums with the same title/artist.
      * @param title The title of the Album
      * @param artist Arist who created the Album.
      */
@@ -36,7 +37,12 @@ public class Album {
         this.artist = artist;
     }
 
-
+    /**
+     * Sets the genre of an album from user input.
+     * Checks if user input is equivalent to an enum Genre. If not Genre is set to unknown.
+     * @param genre
+     * @return
+     */
     private Genre setGenre(String genre){
         for (Genre element: Genre.values()){
             if (genre.toLowerCase().equals(element.name().toLowerCase())){
@@ -66,14 +72,10 @@ public class Album {
         currentNode.setNext(new Rating(star));
     }
 
-    public Date getReleased() {
-        return released;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-    
+    /**
+     * Iterates through nodes to calculate the average rating
+     * @return average rating of the album
+     */
     public double avgRatings() {
         if (ratings == null){
             return 0.0;
@@ -91,6 +93,12 @@ public class Album {
         return total/count;
     }
 
+    /**
+     * Compares this album with another album for equivalency.
+     * If two albums have the same title and artist than they are equivalent.
+     * @param obj album to be compared to
+     * @return true if equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Album)){
@@ -103,6 +111,26 @@ public class Album {
         return false;
     }
 
+    /**
+     * Formats an album toString representation.
+     * @return a string in the format [title] Released mm/dd/yyyy [artist:mm/dd/yyyy] [genre] Rating:
+     */
+    @Override
+    public String toString() {
+        int[] rateArr = nodeRatings(); //An array with the count of ratings
+        if (ratings == null){
+            return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating: none";
+        }
+        String avgRatingsStr = String.format("%.2f", avgRatings());
+        return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating:" +
+                "*(" + rateArr[0] + ")" + "**(" + rateArr[1] + ")" + "***(" + rateArr[2] + ")" +
+                "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ") (average rating: " + avgRatingsStr + ")";
+    }
+
+    /**
+     * Calculates the amount of ratings of 1,2,3,4,5 star ratings the album has
+     * @return an integer array with the count of ratings.
+     */
     private int[] nodeRatings(){
         final int TOTAL_STARS = 5;
         final int OFFSET = 1; // count of each star value will be stored at index of [starvalue - 1]
@@ -116,38 +144,26 @@ public class Album {
         return nodeRatings;
     }
 
-    @Override
-    public String toString() {
-        int[] rateArr = nodeRatings();
-        if (ratings == null){
-            return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating: none";
-        }
-        String avgRatingsStr = String.format("%.2f", avgRatings());
-        return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating:" +
-                "*(" + rateArr[0] + ")" + "**(" + rateArr[1] + ")" + "***(" + rateArr[2] + ")" +
-                "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ") (average rating: " + avgRatingsStr + ")";
-    }
-
-
+    /**
+     * @return title of the album
+     */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @return name of the genre of the album
+     * @return genre of the album
      */
     public Genre getGenre() {
         return genre;
     }
 
-
     /**
-     * @return date (obj) of album
+     * @return date (obj) of the album
      */
     public Date getDate() {
         return released;
     }
-
 
     /**
      * @return date (str) of the album
@@ -156,19 +172,18 @@ public class Album {
         return released.toString();
     }
 
-
-
-    public static void main(String[] args) {
-        Date dob = new Date(05,24,2000);
-        Date released = new Date(2,8,2024);
-        Artist artist = new Artist("taylor", dob);
-        Album test = new Album("Fearless", artist, "pop",released);
-        System.out.println(test);
-        test.rate(4);
-        test.rate(4);
-        test.rate(3);
-        test.rate(1);
-        test.rate(5);
-        System.out.println(test);
+    /**
+     * @return release date of the Album
+     */
+    public Date getReleased() {
+        return released;
     }
+
+    /**
+     * @return artist of the album
+     */
+    public Artist getArtist() {
+        return artist;
+    }
+
 }

@@ -31,6 +31,7 @@ public class CollectionManager {
         System.out.println("Collection Manager is up running\n");
         while (scanner.hasNextLine() && runCM) {
             String line = scanner.nextLine();
+            if (line.isEmpty()) continue; // skip this loop iteration if line is empty
             String[] tokenArray = line.split(",");
             Command command;
             if (!validateCommand(tokenArray[0])){

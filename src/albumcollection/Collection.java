@@ -125,15 +125,124 @@ public class Collection {
 
     }
 
+    /**
+     * Sorts album collection by dates released, then title
+     * Prints out sorted collection
+     */
     public void printByDate() {
 
+        Album holdAlbum = null;
+
+        for (int  j = 0; j < size; j++) {
+            for (int i = 0; i < size-1; i++) {
+                Date date1 = albums[i].getDate();
+                Date date2 = albums[i+1].getDate();
+
+                if(date1.compareTo(date2) > 0) {
+
+                    holdAlbum = albums[i];
+                    albums[i] = albums[i+1];
+                    albums[i+1] = holdAlbum;
+
+                } else if(date1.compareTo(date2) == 0) {
+
+                    String firstStr = albums[i].getTitle();
+                    String secStr = albums[i+1].getTitle();
+
+                    if(firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
+                        holdAlbum = albums[i];
+                        albums[i] = albums[i+1];
+                        albums[i+1] = holdAlbum;
+
+                    }
+
+                }
+
+
+            }
+
+
+
+        }
+
+        for(int i = 0; i < size; i++) { //need to properly format
+            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating " + albums[i].avgRatings());
+        }
+
     }
 
-    public void printByGenre() {
+    /**
+     * Sorts album collection by genre, then artist name and DOB
+     * Prints out sorted collection
+     */
+    public void printByGenre() { //
+
+        Album holdAlbum = null;
+
+        for(int j = 0; j < size; j++) {
+            for (int i = 0; i < size-1; i++) {
+                Genre firstG = albums[i].getGenre();
+                Genre secG = albums[i+1].getGenre();
+
+
+                /* Work in progress need to fix
+                if (firstStr.compareTo(secStr) > 0) {
+                    holdAlbum = albums[i];
+                    albums[i] = albums[i+1];
+                    albums[i+1] = holdAlbum;
+
+                }
+                else if (firstStr.compareTo(secStr) == 0) {
+                    //waiting for artist class, need to compare artist names and DOB
+                } */
+
+            }
+
+        }
+
+        for(int i = 0; i < size; i++) { //need to properly format
+            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating " + albums[i].avgRatings());
+        }
 
     }
 
+    /**
+     * Sorts album collection by average rating, then title
+     * Prints out sorted collection
+     */
     public void printByRating() {
+
+        Album holdAlbum = null;
+
+        for (int j = 0; j < size; j++) { //sorting algorithm
+
+            for (int i = 0; i < size - 1; i++) {
+
+                if (albums[i].avgRatings() < albums[i+1].avgRatings()) {
+                    holdAlbum = albums[i];
+                    albums[i] = albums[i+1];
+                    albums[i+1] = holdAlbum;
+                }
+                else if (albums[i].avgRatings() == albums[i+1].avgRatings()) {
+                    String firstStr = albums[i].getTitle();
+                    String secStr = albums[i+1].getTitle();
+
+                    if(firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
+                        holdAlbum = albums[i];
+                        albums[i] = albums[i+1];
+                        albums[i+1] = holdAlbum;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        for(int i = 0; i < size; i++) { //need to properly format
+            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating" + albums[i].avgRatings());
+        }
 
     }
 

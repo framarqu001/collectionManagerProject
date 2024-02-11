@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class CollectionManager {
     private enum Command {A, D, R, PD, PG, PR, Q}
-    private TestCollection collection;
+    private Collection collection;
 
     private void add(String[] tokenArray){
         String title = tokenArray[1];
@@ -70,7 +70,7 @@ public class CollectionManager {
     }
 
     public CollectionManager() {
-        this.collection = new TestCollection();
+        this.collection = new Collection();
     }
 
     public void run(){

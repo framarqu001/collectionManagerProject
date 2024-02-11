@@ -136,6 +136,36 @@ public class Album {
                 "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ") (average rating: " + avgRatingsStr + ")";
     }
 
+
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @return name of the genre of the album
+     */
+    public Genre getGenre() {
+        return genre;
+    }
+
+
+    /**
+     * @return date (obj) of album
+     */
+    public Date getDate() {
+        return released;
+    }
+
+
+    /**
+     * @return date (str) of the album
+     */
+    public String getDateStr() {
+        return released.toString();
+    }
+
+
+
     public static void main(String[] args) {
         Date dob = new Date(05,24,2000);
         Date released = new Date(2,8,2024);

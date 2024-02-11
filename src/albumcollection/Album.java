@@ -66,6 +66,22 @@ public class Album {
         currentNode.setNext(new Rating(star));
     }
 
+    public Date getReleased() {
+        return released;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     public double avgRatings() {
         if (ratings == null){
             return 0.0;
@@ -112,11 +128,12 @@ public class Album {
     public String toString() {
         int[] rateArr = nodeRatings();
         if (ratings == null){
-            return"[" + title + "] Released " + released + "[" + artist + "][" + genre.name() + "]Rating: none";
+            return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating: none";
         }
-        return"[" + title + "] Released " + released + "[" + artist + "][" + genre.name() + "]Rating:" +
+        String avgRatingsStr = String.format("%.2f", avgRatings());
+        return"[" + title + "] Released " + released + " [" + artist + "] [" + genre.name() + "] Rating:" +
                 "*(" + rateArr[0] + ")" + "**(" + rateArr[1] + ")" + "***(" + rateArr[2] + ")" +
-                "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ")";
+                "****(" + rateArr[3] + ")" + "*****(" + rateArr[4] + ") (average rating: " + avgRatingsStr + ")";
     }
 
     public static void main(String[] args) {

@@ -34,8 +34,7 @@ public class CollectionManager {
         Date dob = new Date(tokenArray[3]);
         Artist artist = new Artist(tokenArray[2], dob);
         Album deleteAlbum = new Album(title,artist);
-        if (collection.contains(deleteAlbum)){
-            collection.remove(deleteAlbum);
+        if (collection.remove(deleteAlbum)){
             System.out.println(title + "(" + artist.toString() + ") removed from the collection.");
         } else {
             System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
@@ -43,20 +42,24 @@ public class CollectionManager {
     }
 
     private void rate(String[] tokenArray){
+        int star = Integer.parseInt(tokenArray[4]);
+        if (star > 5 || star < 1){
+            System.out.println("Invalid rating, rating scale is 1 to 5");
+            return;
+        }
+        String title = tokenArray[1];
+        Date dob = new Date(tokenArray[3]);
+        Artist artist = new Artist(tokenArray[2], dob);
+        Album rateAlbum = new Album(title,artist);
+        if (collection.contains(rateAlbum)){
+            collection.rate(rateAlbum,star);
+            System.out.println("You rate " + star + " for " + title + "(" + artist.toString() + ")");
 
+        } else {
+            System.out.println(title + "(" + artist.toString() + ") is not in the collection.");
+        }
     }
 
-    private void displayReleaseSort(){
-
-    }
-
-    private void displayGenreSort(){
-
-    }
-
-    private void displayRatingSort(){
-
-    }
     private Boolean validateCommand(String commandStr){
         for (Command command : Command.values()){
             if (commandStr.equals(command.name())){
@@ -79,7 +82,7 @@ public class CollectionManager {
             String[] tokenArray = line.split(",");
             Command command;
             if (!validateCommand(tokenArray[0])){
-                System.out.println("invalid command");
+                System.out.println("Invalid command!");
                 continue;
             }
             command = Command.valueOf(tokenArray[0]);
@@ -94,13 +97,13 @@ public class CollectionManager {
                     rate(tokenArray);
                     break;
                 case PD:
-                    displayReleaseSort();
+                    collection.printByDate();
                     break;
                 case PG:
-                    displayGenreSort();
+                    collection.printByGenre();
                     break;
                 case PR:
-                    displayRatingSort();
+                        collection.printByRating();
                     break;
                 case Q:
                     runCM = false;

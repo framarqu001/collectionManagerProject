@@ -152,7 +152,7 @@ public class Collection {
     /**
      * Prints out the collection in proper format
      */
-    public void printCollection() {
+    private void printCollection() {
 
         for (int i = 0; i < size; i++) {
             if (albums[i] != null) {

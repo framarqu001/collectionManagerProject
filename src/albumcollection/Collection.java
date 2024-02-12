@@ -12,6 +12,11 @@ public class Collection {
     private Album[] albums;
     private int size;
 
+    public Collection() {
+       this.albums = new Album[INITIAL_CAPACITY];
+        this.size = 0;
+    }
+
     /**
      * Searches for an album in the list
      *
@@ -39,18 +44,7 @@ public class Collection {
      */
     private void grow() {
 
-        int growSize = 0;
-
-        if (albums == null) {
-            growSize = 4;
-            Album[] growAlbums = new Album[growSize];
-            albums = growAlbums;
-            return;
-        } else {
-            growSize = albums.length + 4;
-        }
-
-        Album[] growAlbums = new Album[growSize];
+        Album[] growAlbums = new Album[albums.length + INITIAL_CAPACITY];
 
         for (int i = 0; i < albums.length; i++) {
             growAlbums[i] = albums[i];
@@ -150,8 +144,9 @@ public class Collection {
         albums[index].rate(rating);
     }
 
-    public Album getMatchingAlbum(Album newAlbum) {
-        return albums[0]; //temp
+    public Album getMatchingAlbum(Album album) {
+        int index = find(album);
+        return albums[index];
     }
 
     /**

@@ -168,6 +168,37 @@ public class Album {
     }
 
     /**
+     * @return the genre of the album as a string
+     */
+    public String genreToString() {
+
+        String genString = " ";
+
+        switch(genre) {
+            case POP:
+                genString = "Pop";
+                break;
+            case COUNTRY:
+                genString = "Country";
+                break;
+            case CLASSICAL:
+                genString = "Classical";
+                break;
+            case JAZZ:
+                genString = "Jazz";
+                break;
+            case UNKNOWN:
+                genString = "Unknown";
+                break;
+            default:
+                genString = "???";
+                break;
+        }
+
+        return genString;
+    }
+
+    /**
      * @return date (obj) of the album
      */
     public Date getDate() {

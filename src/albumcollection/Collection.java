@@ -13,6 +13,7 @@ public class Collection {
 
     /**
      * Searches for an album in the list
+     *
      * @param album the album being searched for
      * @return the index of the album in the list if found, returns -1 otherwise
      */
@@ -23,12 +24,14 @@ public class Collection {
         int index = NOT_FOUND;
 
         for (int i = 0; i < size; i++) {
-            if (albums[i].equals(album)) {
+            if (albums[i] != null && albums[i].equals(album)) {
                 index = i;
+                //System.out.println("Found");
                 return index;
             }
         }
 
+        //System.out.println("Not Found");
         return NOT_FOUND;
 
     }
@@ -38,20 +41,31 @@ public class Collection {
      */
     private void grow() {
 
-    int growSize = size + 4;
-    Album[] growAlbums = new Album[growSize];
 
-    for (int i = 0; i < size; i++) {
-        growAlbums[i] = albums[i];
-    }
+        int growSize = 0;
 
-    albums = growAlbums;
-    size = growSize;
+        if (albums == null) {
+            growSize = 4;
+            Album[] growAlbums = new Album[growSize];
+            albums = growAlbums;
+            return;
+        } else {
+            growSize = albums.length + 4;
+        }
+
+        Album[] growAlbums = new Album[growSize];
+
+        for (int i = 0; i < albums.length; i++) {
+            growAlbums[i] = albums[i];
+        }
+
+        albums = growAlbums;
 
     }
 
     /**
      * Checks to see if an album is contained in the list
+     *
      * @param album the album being searched for
      * @return true if the album is in the list, false if otherwise
      */
@@ -59,7 +73,7 @@ public class Collection {
 
         int search = find(album);
 
-        if (search == -1) {
+        if (search < 0) {
             return false;
         }
 
@@ -69,6 +83,7 @@ public class Collection {
 
     /**
      * Adds an album to the end of the list
+     *
      * @param album the album being added to the list
      * @return true if successfully added, false if already in album
      */
@@ -79,21 +94,28 @@ public class Collection {
             return false;
         }
 
-        if (albums[size-1] != null) {
+        if (albums == null || size == albums.length) {
+            grow();
+        }
+
+        if (albums[albums.length - 1] != null) {
             grow();
         }
 
         int i = 0;
         while (albums[i] != null) {
+            //System.out.println(i);
             i++;
         }
 
         albums[i] = album;
+        size++;
         return true;
     }
 
     /**
      * Removes requested album from the list
+     *
      * @param album the album to be removed
      * @return true if successfully removed, false if it doesn't exist
      */
@@ -105,18 +127,19 @@ public class Collection {
             return false;
         }
 
-        for (int i = albIndex; i < size-1; i++) { //removes album by shifting all preceding albums
-            albums[i] = albums[i+1];
+        for (int i = albIndex; i < albums.length - 1; i++) { //removes album by shifting all preceding albums
+            albums[i] = albums[i + 1];
         }
 
-        albums[size-1] = null;
+        albums[albums.length - 1] = null;
 
         return true; //place holder
     }
 
     /**
      * Adds a rating to an album
-     * @param album the album being rated
+     *
+     * @param album  the album being rated
      * @param rating the rating to be assigned to the album
      */
     public void rate(Album album, int rating) {
@@ -125,8 +148,20 @@ public class Collection {
 
     }
 
-    public Album getMatchingAlbum(Album newAlbum){
+    public Album getMatchingAlbum(Album newAlbum) {
         return albums[0]; //temp
+    }
+
+    /**
+     * Prints out the collection in proper format (Rating is WIP)
+     */
+    public void printCollection() {
+
+        for (int i = 0; i < size; i++) {
+            if (albums[i] != null) {
+                System.out.println(albums[i].toString());
+            }
+        }
     }
 
     /**
@@ -137,41 +172,42 @@ public class Collection {
 
         Album holdAlbum = null;
 
-        for (int  j = 0; j < size; j++) {
-            for (int i = 0; i < size-1; i++) {
-                Date date1 = albums[i].getDate();
-                Date date2 = albums[i+1].getDate();
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size - 1; i++) {
 
-                if(date1.compareTo(date2) > 0) {
+                if (albums[i] != null && albums[i + 1] != null) {
 
-                    holdAlbum = albums[i];
-                    albums[i] = albums[i+1];
-                    albums[i+1] = holdAlbum;
+                    Date date1 = albums[i].getDate();
+                    Date date2 = albums[i + 1].getDate();
 
-                } else if(date1.compareTo(date2) == 0) {
 
-                    String firstStr = albums[i].getTitle();
-                    String secStr = albums[i+1].getTitle();
+                    if (date1.compareTo(date2) > 0) {
 
-                    if(firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
                         holdAlbum = albums[i];
-                        albums[i] = albums[i+1];
-                        albums[i+1] = holdAlbum;
+                        albums[i] = albums[i + 1];
+                        albums[i + 1] = holdAlbum;
+
+                    } else if (date1.compareTo(date2) == 0) {
+
+                        String firstStr = albums[i].getTitle();
+                        String secStr = albums[i + 1].getTitle();
+
+                        if (firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
+                            holdAlbum = albums[i];
+                            albums[i] = albums[i + 1];
+                            albums[i + 1] = holdAlbum;
+
+                        }
 
                     }
-
                 }
-
 
             }
 
 
-
         }
 
-        for(int i = 0; i < size; i++) { //need to properly format
-            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating " + albums[i].avgRatings());
-        }
+        printCollection();
 
     }
 
@@ -183,30 +219,36 @@ public class Collection {
 
         Album holdAlbum = null;
 
-        for(int j = 0; j < size; j++) {
-            for (int i = 0; i < size-1; i++) {
-                Genre firstG = albums[i].getGenre();
-                Genre secG = albums[i+1].getGenre();
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size - 1; i++) {
 
+                if (albums[i] != null && albums[i + 1] != null) {
 
-                /* Work in progress need to fix
-                if (firstStr.compareTo(secStr) > 0) {
-                    holdAlbum = albums[i];
-                    albums[i] = albums[i+1];
-                    albums[i+1] = holdAlbum;
+                    String firstG = albums[i].genreToString();
+                    String secG = albums[i + 1].genreToString();
+
+                    if (firstG.compareTo(secG) > 0) {
+                        holdAlbum = albums[i];
+                        albums[i] = albums[i + 1];
+                        albums[i + 1] = holdAlbum;
+
+                    } else if (firstG.compareTo(secG) == 0) {
+                        Artist firstArt = albums[i].getArtist();
+                        Artist secArt = albums[i + 1].getArtist();
+
+                        if (firstArt.compareTo(secArt) > 0) { //compares name and DOB
+                            holdAlbum = albums[i];
+                            albums[i] = albums[i + 1];
+                            albums[i + 1] = holdAlbum;
+                        }
+
+                    }
 
                 }
-                else if (firstStr.compareTo(secStr) == 0) {
-                    //waiting for artist class, need to compare artist names and DOB
-                } */
-
             }
-
         }
 
-        for(int i = 0; i < size; i++) { //need to properly format
-            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating " + albums[i].avgRatings());
-        }
+        printCollection();
 
     }
 
@@ -222,31 +264,116 @@ public class Collection {
 
             for (int i = 0; i < size - 1; i++) {
 
-                if (albums[i].avgRatings() < albums[i+1].avgRatings()) {
-                    holdAlbum = albums[i];
-                    albums[i] = albums[i+1];
-                    albums[i+1] = holdAlbum;
-                }
-                else if (albums[i].avgRatings() == albums[i+1].avgRatings()) {
-                    String firstStr = albums[i].getTitle();
-                    String secStr = albums[i+1].getTitle();
+                if (albums[i] != null && albums[i + 1] != null) {
 
-                    if(firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
+                    Double rate1 = albums[i].avgRatings();
+                    Double rate2 = albums[i+1].avgRatings();
+
+                    if (rate1 < rate2) {
+
                         holdAlbum = albums[i];
-                        albums[i] = albums[i+1];
-                        albums[i+1] = holdAlbum;
+                        albums[i] = albums[i + 1];
+                        albums[i + 1] = holdAlbum;
+
+                    } else if (rate1.equals(rate2)) {
+                        String firstStr = albums[i].getTitle();
+                        String secStr = albums[i + 1].getTitle();
+
+                        if (firstStr.compareTo(secStr) > 0) { // 1 means first str larger than sec str
+                            holdAlbum = albums[i];
+                            albums[i] = albums[i + 1];
+                            albums[i + 1] = holdAlbum;
+
+                        }
 
                     }
 
                 }
-
             }
-
         }
 
-        for(int i = 0; i < size; i++) { //need to properly format
-            System.out.println("[" + albums[i].getTitle() + "] Released " + albums[i].getDateStr() + " Rating" + albums[i].avgRatings());
-        }
+        printCollection();
+
+    }
+
+
+    public static void main(String[] args) {
+        testAdd();
+
+    }
+
+
+    private static void testAdd() {
+        Collection albums = new Collection();
+        Date testDate1 = new Date("1/1/2000");
+
+        Artist test1 = new Artist("Taylor Swift", testDate1);
+        Artist test2 = new Artist("Ken Lamar", testDate1);
+        Artist test3 = new Artist("MJ", testDate1);
+        Artist test4 = new Artist("Pop Smoke", testDate1);
+        Artist test5 = new Artist("Juice", testDate1);
+        Artist test6 = new Artist("Green Day", testDate1);
+
+        Album alb1 = new Album("Midnights",test1);
+        Album alb2 = new Album("Butterfly",test2);
+        Album alb3 = new Album("Thriller",test3);
+        Album alb4 = new Album("Woo",test4);
+        Album alb5 = new Album("Love Race",test5);
+        Album alb6 = new Album("DNA",test2);
+        Album alb7 = new Album("Can't Die",test5);
+        Album alb8 = new Album("Kelce",test1);
+        Album alb9 = new Album("Brain Stew",test6);
+        Album alb10 = new Album("Not here",test1);
+
+        albums.add(alb1);
+        albums.add(alb2);
+        albums.add(alb3);
+        albums.add(alb4);
+        albums.add(alb5);
+        albums.add(alb6);
+        albums.add(alb7);
+        albums.add(alb8);
+        albums.add(alb9);
+
+        System.out.println(albums.size);
+
+        System.out.println(albums.contains(alb10));
+
+    }
+
+    private static void testSort() {
+        Collection albums = new Collection();
+
+        Date artb1 = new Date("12/13/1989");
+        Artist art1 = new Artist("Taylor Swift", artb1);
+        String gen1 = "POP";
+        Date rel1 = new Date("3/25/2022");
+        Rating rate1 = new Rating(1);
+        Album alb1 = new Album("Midnights", art1, gen1, rel1);
+
+        Date artb2 = new Date ("6/12/1985");
+        Artist art2 = new Artist ("Chris Young", artb2);
+        String gen2 = "COUNTRY";
+        Date rel2 = new Date("10/20/2017");
+        Album alb2 = new Album("Losing Sleep", art2, gen2, rel2);
+
+
+        Date artb3 = new Date ("1/1/1997");
+        Artist art3 = new Artist ("Coldplay", artb3);
+        String gen3 = "JAZZ";
+        Date rel3 = new Date("5/16/2014");
+        Album alb3 = new Album("Ghost Stories", art3, gen3, rel3);
+
+        Date artb4 = new Date ("1/19/1955");
+        Artist art4 = new Artist ("Simon Rattle", artb4);
+        String gen4 = "CLASSICAL";
+        Date rel4 = new Date("9/14/1999");
+        Album alb4 = new Album("Wondeful Town", art4, gen4, rel4);
+
+        albums.add(alb1);
+        albums.add(alb2);
+        albums.add(alb3);
+        albums.add(alb4);
 
     }
 

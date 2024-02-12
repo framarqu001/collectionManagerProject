@@ -4,13 +4,16 @@ package albumcollection;
  * This class holds the information of an Artist for an Album.
  * The artist class contains a string for the name of the artist.
  * Also, an object of Date representing the Artist birthday.
+ *
+ * @author Francisco Marquez
  */
 public class Artist implements Comparable<Artist> {
-    private String name;
-    private Date born;
+    private final String name;
+    private final Date born;
 
     /**
      * Initializes an artist object
+     *
      * @param name The name of the artist
      * @param born The date of birth of the artist
      */
@@ -21,7 +24,9 @@ public class Artist implements Comparable<Artist> {
 
     /**
      * Compares artist objects by comparing an artist's name lexicographically.
+     * Names are not case-sensitive.
      * DOB is used as a tie-breaker.
+     *
      * @param that the object to be compared.
      * @return 0 if items are equal.
      * -1 if this.artist < that.artist
@@ -31,26 +36,23 @@ public class Artist implements Comparable<Artist> {
     public int compareTo(Artist that) {
         if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) > 0) return 1;
         if (this.name.toLowerCase().compareTo(that.name.toLowerCase()) < 0) return -1;
-        if(this.born.compareTo(that.born) == 1) return 1;
-        if(this.born.compareTo(that.born) == -1) return -1;
+        if (this.born.compareTo(that.born) == 1) return 1;
+        if (this.born.compareTo(that.born) == -1) return -1;
         else return 0;
     }
 
     /**
      * Overrides equals methods. Artist are equals if they have the same name and DOB
+     *
      * @param obj An artist object. Obj will be cast into an artist obj
      * @return true if equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Artist)){
-             return false;
+        if (!(obj instanceof Artist that)) {
+            return false;
         }
-        Artist that = (Artist) obj;
-        if (this.compareTo(that) == 0){
-            return true;
-        }
-        return false;
+        return this.compareTo(that) == 0;
 
     }
 
@@ -78,7 +80,7 @@ public class Artist implements Comparable<Artist> {
         testArtistSameNameGreaterDate();
     }
 
-    private static void testArtistSameNameDifferentCaseLesserDate(){
+    private static void testArtistSameNameDifferentCaseLesserDate() {
         int expectedOutput = -1; // Ignores name capitalization and instead compares dates. 05/24 > 03/24
         int actualOutput;
         Date testDate1 = new Date("03/24/2000");
@@ -89,7 +91,7 @@ public class Artist implements Comparable<Artist> {
         printTestResults(test1, test2, expectedOutput, actualOutput);
     }
 
-    private static void testArtistlexicographicalOrderLesserThan(){
+    private static void testArtistlexicographicalOrderLesserThan() {
         int expectedOutput = -1; // K comes before S so this.date < that.date
         int actualOutput;
         Date testDate1 = new Date("08/24/2003");
@@ -100,8 +102,8 @@ public class Artist implements Comparable<Artist> {
         printTestResults(test1, test2, expectedOutput, actualOutput);
     }
 
-    private static void testArtistSameNameSameDate(){
-        int expectedOutput = 0; // If its the same name then it will return 0;
+    private static void testArtistSameNameSameDate() {
+        int expectedOutput = 0; // If it is the same name then it will return 0;
         int actualOutput;
         Date testDate1 = new Date("05/24/2000");
         Artist test1 = new Artist("Steven Marquez", testDate1);
@@ -111,7 +113,7 @@ public class Artist implements Comparable<Artist> {
         printTestResults(test1, test2, expectedOutput, actualOutput);
     }
 
-    private static void testArtistlexicographicalOrderGreaterThan(){
+    private static void testArtistlexicographicalOrderGreaterThan() {
         int expectedOutput = 1; // Joe is > john alphabetically.
         int actualOutput;
         Date testDate1 = new Date("05/24/2000");
@@ -121,7 +123,8 @@ public class Artist implements Comparable<Artist> {
         actualOutput = test1.compareTo(test2);
         printTestResults(test1, test2, expectedOutput, actualOutput);
     }
-    private static void testArtistSameNameGreaterDate(){
+
+    private static void testArtistSameNameGreaterDate() {
         int expectedOutput = 1; // 2/24/2023 > 05/24/2000
         int actualOutput;
         Date testDate1 = new Date("2/24/2023");
@@ -138,7 +141,7 @@ public class Artist implements Comparable<Artist> {
         System.out.println("Actual output: " + actualOutput);
         if (actualOutput == expectedOutput) {
             System.out.println("Test passed\n-------------------------");
-        }else{
+        } else {
             System.out.println("Test Failed\n-------------------------");
         }
     }

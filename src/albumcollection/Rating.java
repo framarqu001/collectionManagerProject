@@ -4,6 +4,7 @@ package albumcollection;
  * The Rating class represents a rating for an Album on a 1-5 scale.
  * Each rating is a node. An Album will contain a linked list of ratings by
  * storing a reference to a head node.
+ * @author Francisco Marquez
  */
 public class Rating {
     private int star;

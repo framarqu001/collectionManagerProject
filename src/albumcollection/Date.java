@@ -1,9 +1,11 @@
 package albumcollection;
+
 import java.util.Calendar;
 
 /**
  * The {@code Date} class represents a date to be used In Collection Manager.
  * The Class contains logic to determine if created date is a valid Calendar date.
+ *
  * @author Francisco Marquez
  */
 public class Date implements Comparable<Date> {
@@ -13,14 +15,18 @@ public class Date implements Comparable<Date> {
      * Each month has a month value and the amount of days associated with that month.
      */
     private enum Month {
-        JANUARY(1, 31), FEBRUARY(2, 28), MARCH(3, 31), APRIL(4, 30), MAY(5, 31), JUN(6, 30), JULY(7, 31),
-        AUGUST(8, 31), SEPTEMBER(9, 30), OCTOBER(10, 31), NOVEMBER(11, 30), DECEMBER(12, 31), LEAP_FEBRUARY(2, 29);
+        JANUARY(1, 31), FEBRUARY(2, 28), MARCH(3, 31), APRIL(4, 30),
+        MAY(5, 31), JUN(6, 30), JULY(7, 31), AUGUST(8, 31),
+        SEPTEMBER(9, 30), OCTOBER(10, 31), NOVEMBER(11, 30), DECEMBER(12, 31),
+        LEAP_FEBRUARY(2, 29);
+
         private final int monthNum;
         private final int monthDays;
 
         /**
          * Constructs an enum Month
-         * @param monthNum the value associated with a month
+         *
+         * @param monthNum  the value associated with a month
          * @param monthDays the amount of days in a month
          */
         Month(int monthNum, int monthDays) {
@@ -43,16 +49,17 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    private int day;
-    private int month;
-    private int year;
+    private final int day;
+    private final int month;
+    private final int year;
 
     /**
      * Initializes a Date object.
      * Parses token and stores the month, day, and year.
+     *
      * @param token A string in the format of "mm/dd/yyyy
      */
-    public Date(String token){
+    public Date(String token) {
         String[] dateToken = token.split("/");
         this.month = Integer.parseInt(dateToken[0]);
         this.day = Integer.parseInt(dateToken[1]);
@@ -61,9 +68,10 @@ public class Date implements Comparable<Date> {
 
     /**
      * Initializes a Date Object.
-     * @param year int representing year
+     *
+     * @param year  int representing year
      * @param month int representing month
-     * @param day int representing day
+     * @param day   int representing day
      */
     public Date(int month, int day, int year) {
         this.month = month;
@@ -76,9 +84,10 @@ public class Date implements Comparable<Date> {
      * To be a valid date it must not be before the year 1900.
      * Must be date that exist on the Calendar.
      * Cannot be today or a future day.
+     *
      * @return true if valid, false otherwise.
      */
-    public boolean isValid () {
+    public boolean isValid() {
         final int MIN_YEAR = 1900;
         final int MONTH_OFFSET = 1; // calendar.month indexes month from 0;
         if (year < MIN_YEAR) return false;
@@ -88,12 +97,13 @@ public class Date implements Comparable<Date> {
         int calMonth = calendar.get(Calendar.MONTH) + MONTH_OFFSET;
         int calDay = calendar.get(Calendar.DAY_OF_MONTH);
         Date todayDate = new Date(calMonth, calDay, calYear);
-        if (compareTo(todayDate) != -1) return false; // This.Date is greater >= today's date, so date is invalid
-        return true; //placeholder
+        return compareTo(todayDate) == -1; // This.Date is greater >= today's date, so date is invalid
+
     }
 
     /**
      * Helper methods that checks if theMonth and Day of the Date object is a valid calendar day.
+     *
      * @return true if month and day are valid values, false otherwise
      */
     private boolean validateMonthDay() {
@@ -110,16 +120,14 @@ public class Date implements Comparable<Date> {
                 enumMonth = Month.LEAP_FEBRUARY;
             }
         }
-        if (day <= enumMonth.getDays() && day > 0) { // do i need to change 0?
-            return true;
-        }
-
-        return false;
+        // do i need to change 0?
+        return day <= enumMonth.getDays() && day > 0;
 
     }
 
     /**
      * Checks if the Date object's year is considered a leap year.
+     *
      * @return true if leap year, false otherwise.
      */
     private boolean leapYear() {
@@ -127,9 +135,7 @@ public class Date implements Comparable<Date> {
         final int CENTENNIAL = 100;
         final int QUATERCENTENNIAL = 400;
         if (year % QUADRENNIAL == 0) {
-            if (year % CENTENNIAL != 0 || year % QUATERCENTENNIAL == 0) {
-                return true;
-            }
+            return year % CENTENNIAL != 0 || year % QUATERCENTENNIAL == 0;
         }
         return false;
     }
@@ -137,18 +143,19 @@ public class Date implements Comparable<Date> {
     /**
      * Compares Date objects based on date order.
      * Dates that come before other dates or consider less than.
+     *
      * @param that the date object to be compared to.
      * @return 0 if the items are equal.
      * -1 if this.date < that.date.
      * 1 if this.date > that.date
      */
     @Override
-    public int compareTo (Date that){
-        if (this.year  < that.year) return -1;
+    public int compareTo(Date that) {
+        if (this.year < that.year) return -1;
         if (this.year > that.year) return 1;
-        if (this.month  < that.month) return -1;
+        if (this.month < that.month) return -1;
         if (this.month > that.month) return 1;
-        if (this.day  < that.day) return -1;
+        if (this.day < that.day) return -1;
         if (this.day > that.day) return 1;
         return 0;
     }
@@ -240,7 +247,7 @@ public class Date implements Comparable<Date> {
         System.out.println("Actual output: " + actualOutput);
         if (actualOutput == expectedOutput) {
             System.out.println("Test passed\n-------------------------");
-        }else{
+        } else {
             System.out.println("Test Failed\n-------------------------");
         }
     }

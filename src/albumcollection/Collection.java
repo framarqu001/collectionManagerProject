@@ -41,15 +41,25 @@ public class Collection {
      */
     private void grow() {
 
-        int growSize = size + 4;
+
+        int growSize = 0;
+
+        if (albums == null) {
+            growSize = 4;
+            Album[] growAlbums = new Album[growSize];
+            albums = growAlbums;
+            return;
+        } else {
+            growSize = albums.length + 4;
+        }
+
         Album[] growAlbums = new Album[growSize];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < albums.length; i++) {
             growAlbums[i] = albums[i];
         }
 
         albums = growAlbums;
-        size = growSize;
 
     }
 
@@ -81,15 +91,14 @@ public class Collection {
 
         int search = find(album);
         if (search != -1) {
-            System.out.println("Found");
             return false;
         }
 
-        if (size == 0) {
+        if (albums == null || size == albums.length) {
             grow();
         }
 
-        if (albums[size - 1] != null) {
+        if (albums[albums.length - 1] != null) {
             grow();
         }
 
@@ -100,6 +109,7 @@ public class Collection {
         }
 
         albums[i] = album;
+        size++;
         return true;
     }
 
@@ -117,11 +127,11 @@ public class Collection {
             return false;
         }
 
-        for (int i = albIndex; i < size - 1; i++) { //removes album by shifting all preceding albums
+        for (int i = albIndex; i < albums.length - 1; i++) { //removes album by shifting all preceding albums
             albums[i] = albums[i + 1];
         }
 
-        albums[size - 1] = null;
+        albums[albums.length - 1] = null;
 
         return true; //place holder
     }
@@ -288,7 +298,7 @@ public class Collection {
 
 
     public static void main(String[] args) {
-        testSort();
+        testAdd();
 
     }
 

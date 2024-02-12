@@ -5,6 +5,7 @@ package albumcollection;
  * Pop, Country, Classical, Jazz, Unknown.
  *
  * @author Francisco Marquez
+ * @author Ryan Colling
  */
 public enum Genre {
     POP,

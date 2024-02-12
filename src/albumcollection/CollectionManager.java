@@ -49,7 +49,7 @@ public class CollectionManager {
                 System.out.println("Invalid command!");
                 continue;
             }
-            command = Command.valueOf(tokenArray[0]);
+            command = Command.valueOf(tokenArray[COMMAND]);
             switch (command) {
                 case A:
                     add(tokenArray);

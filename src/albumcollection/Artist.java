@@ -59,7 +59,7 @@ public class Artist implements Comparable<Artist> {
      */
     @Override
     public String toString() {
-        return name + ": " + born;
+        return name + ":" + born;
     }
 
     /**

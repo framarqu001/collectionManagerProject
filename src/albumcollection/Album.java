@@ -45,8 +45,8 @@ public class Album {
      * Sets the genre of an album from user input.
      * Checks if user input is equivalent to an enum Genre. If not Genre is set to unknown.
      *
-     * @param genre
-     * @return
+     * @param genre the input from the user
+     * @return the genre of the album
      */
     private Genre setGenre(String genre) {
         for (Genre element : Genre.values()) {
@@ -161,13 +161,6 @@ public class Album {
     }
 
     /**
-     * @return genre of the album
-     */
-    public Genre getGenre() {
-        return genre;
-    }
-
-    /**
      * @return the genre of the album as a string
      */
     public String genreToString() {
@@ -196,20 +189,6 @@ public class Album {
         }
 
         return genString;
-    }
-
-    /**
-     * @return date (obj) of the album
-     */
-    public Date getDate() {
-        return released;
-    }
-
-    /**
-     * @return date (str) of the album
-     */
-    public String getDateStr() {
-        return released.toString();
     }
 
     /**

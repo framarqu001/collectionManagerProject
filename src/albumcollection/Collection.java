@@ -32,14 +32,12 @@ public class Collection {
         }
 
         return NOT_FOUND;
-
     }
 
     /**
      * Increases capacity of the list by 4 as needed
      */
     private void grow() {
-
 
         int growSize = 0;
 
@@ -135,9 +133,9 @@ public class Collection {
     }
 
     /**
-     * Adds a rating to an album
+     * Adds a rating to an album in the collection
      *
-     * @param album  the album being rated
+     * @param album  the album in the collection being rated
      * @param rating the rating to be assigned to the album
      */
     public void rate(Album album, int rating) {
@@ -150,7 +148,6 @@ public class Collection {
         }
 
         albums[index].rate(rating);
-
     }
 
     public Album getMatchingAlbum(Album newAlbum) {
@@ -158,7 +155,7 @@ public class Collection {
     }
 
     /**
-     * Prints out the collection in proper format (Rating is WIP)
+     * Prints out the collection in proper format
      */
     public void printCollection() {
 
@@ -182,9 +179,8 @@ public class Collection {
 
                 if (albums[i] != null && albums[i + 1] != null) {
 
-                    Date date1 = albums[i].getDate();
-                    Date date2 = albums[i + 1].getDate();
-
+                    Date date1 = albums[i].getReleased();
+                    Date date2 = albums[i + 1].getReleased();
 
                     if (date1.compareTo(date2) > 0) {
 
@@ -203,13 +199,9 @@ public class Collection {
                             albums[i + 1] = holdAlbum;
 
                         }
-
                     }
                 }
-
             }
-
-
         }
 
         System.out.println("* Collection sorted by Released Date/Title *");
@@ -248,9 +240,7 @@ public class Collection {
                             albums[i] = albums[i + 1];
                             albums[i + 1] = holdAlbum;
                         }
-
                     }
-
                 }
             }
         }
@@ -258,7 +248,6 @@ public class Collection {
         System.out.println("* Collection sorted by Genre/Artist *");
         printCollection();
         System.out.println("* end of list *");
-
     }
 
     /**
@@ -294,9 +283,7 @@ public class Collection {
                             albums[i + 1] = holdAlbum;
 
                         }
-
                     }
-
                 }
             }
         }
@@ -306,87 +293,5 @@ public class Collection {
         System.out.println("* end of list *");
 
     }
-
-
-    public static void main(String[] args) {
-        testAdd();
-
-    }
-
-
-    private static void testAdd() {
-        Collection albums = new Collection();
-        Date testDate1 = new Date("1/1/2000");
-
-        Artist test1 = new Artist("Taylor Swift", testDate1);
-        Artist test2 = new Artist("Ken Lamar", testDate1);
-        Artist test3 = new Artist("MJ", testDate1);
-        Artist test4 = new Artist("Pop Smoke", testDate1);
-        Artist test5 = new Artist("Juice", testDate1);
-        Artist test6 = new Artist("Green Day", testDate1);
-
-        Album alb1 = new Album("Midnights",test1);
-        Album alb2 = new Album("Butterfly",test2);
-        Album alb3 = new Album("Thriller",test3);
-        Album alb4 = new Album("Woo",test4);
-        Album alb5 = new Album("Love Race",test5);
-        Album alb6 = new Album("DNA",test2);
-        Album alb7 = new Album("Can't Die",test5);
-        Album alb8 = new Album("Kelce",test1);
-        Album alb9 = new Album("Brain Stew",test6);
-        Album alb10 = new Album("Not here",test1);
-
-        albums.add(alb1);
-        albums.add(alb2);
-        albums.add(alb3);
-        albums.add(alb4);
-        albums.add(alb5);
-        albums.add(alb6);
-        albums.add(alb7);
-        albums.add(alb8);
-        albums.add(alb9);
-
-        System.out.println(albums.size);
-
-        System.out.println(albums.contains(alb10));
-
-    }
-
-    private static void testSort() {
-        Collection albums = new Collection();
-
-        Date artb1 = new Date("12/13/1989");
-        Artist art1 = new Artist("Taylor Swift", artb1);
-        String gen1 = "POP";
-        Date rel1 = new Date("3/25/2022");
-        Rating rate1 = new Rating(1);
-        Album alb1 = new Album("Midnights", art1, gen1, rel1);
-
-        Date artb2 = new Date ("6/12/1985");
-        Artist art2 = new Artist ("Chris Young", artb2);
-        String gen2 = "COUNTRY";
-        Date rel2 = new Date("10/20/2017");
-        Album alb2 = new Album("Losing Sleep", art2, gen2, rel2);
-
-
-        Date artb3 = new Date ("1/1/1997");
-        Artist art3 = new Artist ("Coldplay", artb3);
-        String gen3 = "JAZZ";
-        Date rel3 = new Date("5/16/2014");
-        Album alb3 = new Album("Ghost Stories", art3, gen3, rel3);
-
-        Date artb4 = new Date ("1/19/1955");
-        Artist art4 = new Artist ("Simon Rattle", artb4);
-        String gen4 = "CLASSICAL";
-        Date rel4 = new Date("9/14/1999");
-        Album alb4 = new Album("Wondeful Town", art4, gen4, rel4);
-
-        albums.add(alb1);
-        albums.add(alb2);
-        albums.add(alb3);
-        albums.add(alb4);
-
-    }
-
 
 }

@@ -3,6 +3,7 @@ package albumcollection;
 /**
  * The Collection class represents a list of albums in an array
  * The class updates and changes the list of albums as needed
+ *
  * @author Ryan Colling
  */
 public class Collection {
@@ -26,12 +27,10 @@ public class Collection {
         for (int i = 0; i < size; i++) {
             if (albums[i] != null && albums[i].equals(album)) {
                 index = i;
-                //System.out.println("Found");
                 return index;
             }
         }
 
-        //System.out.println("Not Found");
         return NOT_FOUND;
 
     }
@@ -104,7 +103,6 @@ public class Collection {
 
         int i = 0;
         while (albums[i] != null) {
-            //System.out.println(i);
             i++;
         }
 
@@ -133,7 +131,7 @@ public class Collection {
 
         albums[albums.length - 1] = null;
 
-        return true; //place holder
+        return true;
     }
 
     /**
@@ -144,7 +142,14 @@ public class Collection {
      */
     public void rate(Album album, int rating) {
 
-        album.rate(rating);
+        int index = find(album);
+
+        if (index < 0) {
+            System.out.println("No rate");
+            return;
+        }
+
+        albums[index].rate(rating);
 
     }
 
@@ -207,7 +212,9 @@ public class Collection {
 
         }
 
+        System.out.println("* Collection sorted by Released Date/Title *");
         printCollection();
+        System.out.println("* end of list *");
 
     }
 
@@ -248,7 +255,9 @@ public class Collection {
             }
         }
 
+        System.out.println("* Collection sorted by Genre/Artist *");
         printCollection();
+        System.out.println("* end of list *");
 
     }
 
@@ -292,7 +301,9 @@ public class Collection {
             }
         }
 
+        System.out.println("* Collection sorted by Rating/Title *");
         printCollection();
+        System.out.println("* end of list *");
 
     }
 

@@ -27,7 +27,7 @@ public class Collection {
 
         final int NOT_FOUND = -1;
 
-        int index = NOT_FOUND;
+        int index;
 
         for (int i = 0; i < size; i++) {
             if (albums[i] != null && albums[i].equals(album)) {
@@ -153,7 +153,6 @@ public class Collection {
      * Prints out the collection in proper format
      */
     private void printCollection() {
-
         for (int i = 0; i < size; i++) {
             if (albums[i] != null) {
                 System.out.println(albums[i].toString());
@@ -166,7 +165,10 @@ public class Collection {
      * Prints out sorted collection
      */
     public void printByDate() {
-
+        if (size == 0) {
+            System.out.println("Collection is Empty!");
+            return;
+        }
         Album holdAlbum = null;
 
         for (int j = 0; j < size; j++) {
@@ -198,11 +200,9 @@ public class Collection {
                 }
             }
         }
-
         System.out.println("* Collection sorted by Released Date/Title *");
         printCollection();
         System.out.println("* end of list *");
-
     }
 
     /**
@@ -210,7 +210,10 @@ public class Collection {
      * Prints out sorted collection
      */
     public void printByGenre() { //
-
+        if (size == 0) {
+            System.out.println("Collection is Empty!");
+            return;
+        }
         Album holdAlbum = null;
 
         for (int j = 0; j < size; j++) {
@@ -239,7 +242,6 @@ public class Collection {
                 }
             }
         }
-
         System.out.println("* Collection sorted by Genre/Artist *");
         printCollection();
         System.out.println("* end of list *");
@@ -250,7 +252,10 @@ public class Collection {
      * Prints out sorted collection
      */
     public void printByRating() {
-
+        if (size == 0) {
+            System.out.println("Collection is Empty!");
+            return;
+        }
         Album holdAlbum = null;
 
         for (int j = 0; j < size; j++) { //sorting algorithm
@@ -282,11 +287,9 @@ public class Collection {
                 }
             }
         }
-
         System.out.println("* Collection sorted by Rating/Title *");
         printCollection();
         System.out.println("* end of list *");
-
     }
 
 }

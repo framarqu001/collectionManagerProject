@@ -183,9 +183,6 @@ public class Album {
             case UNKNOWN:
                 genString = "Unknown";
                 break;
-            default:
-                genString = "???";
-                break;
         }
 
         return genString;

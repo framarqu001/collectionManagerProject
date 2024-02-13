@@ -120,8 +120,7 @@ public class Date implements Comparable<Date> {
                 enumMonth = Month.LEAP_FEBRUARY;
             }
         }
-        // do i need to change 0?
-        return day <= enumMonth.getDays() && day > 0;
+        return day <= enumMonth.getDays() && day > 0; // day has to be between a months range
 
     }
 

@@ -35,6 +35,8 @@ public class Date implements Comparable<Date> {
         }
 
         /**
+         * Gets the months value
+         *
          * @return the month's number. Ranging from 1-12
          */
         public int getMonth() {
@@ -42,6 +44,8 @@ public class Date implements Comparable<Date> {
         }
 
         /**
+         * Gets max days in a month
+         *
          * @return the days in a month.
          */
         public int getDays() {
@@ -160,6 +164,8 @@ public class Date implements Comparable<Date> {
     }
 
     /**
+     * Formats the toString representation of Date
+     *
      * @return A string in the format of mm/dd/year
      */
     @Override

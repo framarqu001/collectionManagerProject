@@ -155,6 +155,7 @@ public class Album {
     }
 
     /**
+     * Returns the album's title.
      * @return title of the album
      */
     public String getTitle() {
@@ -162,11 +163,12 @@ public class Album {
     }
 
     /**
+     * Formats the string of a genre
      * @return the genre of the album as a string
      */
     public String genreToString() {
 
-        String genString = " ";
+        String genString = null;
 
         switch(genre) {
             case POP:
@@ -190,6 +192,7 @@ public class Album {
     }
 
     /**
+     * Returns the albums release date.
      * @return release date of the Album
      */
     public Date getReleased() {
@@ -197,6 +200,7 @@ public class Album {
     }
 
     /**
+     * Returns the albums artist.
      * @return artist of the album
      */
     public Artist getArtist() {

@@ -4,7 +4,8 @@ package albumcollection;
  * This class represents an album in a music collection.
  * An album contains a title, artist, genre, release date, and list of ratings
  *
- * @author Francisco Marquez, Ryan Colling
+ * @author Francisco Marquez
+ * @author Ryan Colling
  */
 public class Album {
     private String title;

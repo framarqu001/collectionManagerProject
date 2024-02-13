@@ -4,8 +4,7 @@ package albumcollection;
  * This class represents an album in a music collection.
  * An album contains a title, artist, genre, release date, and list of ratings
  *
- * @author Francisco Marquez
- * @author Ryan Colling
+ * @author Francisco Marquez, Ryan Colling
  */
 public class Album {
     private String title;
@@ -155,7 +154,6 @@ public class Album {
     }
 
     /**
-     * Returns the album's title.
      * @return title of the album
      */
     public String getTitle() {
@@ -163,12 +161,11 @@ public class Album {
     }
 
     /**
-     * Formats the string of a genre
      * @return the genre of the album as a string
      */
     public String genreToString() {
 
-        String genString = null;
+        String genString = " ";
 
         switch(genre) {
             case POP:
@@ -192,7 +189,6 @@ public class Album {
     }
 
     /**
-     * Returns the albums release date.
      * @return release date of the Album
      */
     public Date getReleased() {
@@ -200,7 +196,6 @@ public class Album {
     }
 
     /**
-     * Returns the albums artist.
      * @return artist of the album
      */
     public Artist getArtist() {

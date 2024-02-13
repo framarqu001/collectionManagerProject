@@ -57,8 +57,6 @@ public class Artist implements Comparable<Artist> {
     }
 
     /**
-     * Formats the toString representation of an Artist
-     *
      * @return A string in the format Artist: (artist) DOB: (DOB)
      */
     @Override
@@ -67,8 +65,6 @@ public class Artist implements Comparable<Artist> {
     }
 
     /**
-     * Gets teh name of an artist
-     *
      * @return name of artist
      */
     public String getName() {
